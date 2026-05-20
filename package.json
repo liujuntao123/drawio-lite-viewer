@@ -1,0 +1,13 @@
+{
+  "name": "drawio-lite-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lightweight draw.io viewer/editor packaged as a static frontend.",
+  "scripts": {
+    "build": "node scripts/prepare-static-deploy.js",
+    "check": "node scripts/prepare-static-deploy.js --check",
+    "preview": "node scripts/serve-dist.js",
+    "deploy:vercel": "npm run build && npx vercel --prod",
+    "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist"
+  }
+}

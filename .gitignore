@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.vercel/
+.wrangler/
+META-INF/
+WEB-INF/
+*.log

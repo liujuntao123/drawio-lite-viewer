@@ -1,0 +1,2 @@
+# This is a static multi-file app. No SPA fallback is configured so missing
+# JavaScript, CSS, image, and resource files fail loudly as 404s.
