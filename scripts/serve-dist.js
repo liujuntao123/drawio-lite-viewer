@@ -1,6 +1,6 @@
-const fs = require('fs');
-const http = require('http');
-const path = require('path');
+import fs from 'node:fs';
+import http from 'node:http';
+import path from 'node:path';
 
 const root = process.cwd();
 const dist = path.join(root, 'dist');
