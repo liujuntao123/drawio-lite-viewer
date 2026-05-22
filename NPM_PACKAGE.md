@@ -31,7 +31,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'node_modules/@your-scope/drawio-editor/dist/drawio',
+          src: 'node_modules/@smart-ai-flow/drawio-editor-lite/dist/drawio',
           dest: 'vendor'
         }
       ]
@@ -46,8 +46,8 @@ Then pass `/vendor/drawio` as `assetBase`.
 
 ```tsx
 import { useRef, useState } from 'react';
-import { DrawioEditor } from '@your-scope/drawio-editor/react';
-import type { DrawioEditorApi } from '@your-scope/drawio-editor/react';
+import { DrawioEditor } from '@smart-ai-flow/drawio-editor-lite/react';
+import type { DrawioEditorApi } from '@smart-ai-flow/drawio-editor-lite/react';
 
 export function DiagramEditor() {
   const editorRef = useRef<DrawioEditorApi>(null);
@@ -75,7 +75,7 @@ export function DiagramEditor() {
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DrawioEditor } from '@your-scope/drawio-editor/vue';
+import { DrawioEditor } from '@smart-ai-flow/drawio-editor-lite/vue';
 
 const xml = ref('<mxfile><diagram /></mxfile>');
 
