@@ -116,8 +116,8 @@ Cloudflare Pages:
 包入口在 `package.json` 的 `exports` 中声明：
 
 ```ts
-import { DrawioEditor } from '@smart-ai-flow/drawio-editor-lite/react';
-import { DrawioEditor } from '@smart-ai-flow/drawio-editor-lite/vue';
+import { DrawioEditor } from '@your-scope/drawio-editor/react';
+import { DrawioEditor } from '@your-scope/drawio-editor/vue';
 ```
 
 React/Vue wrapper 支持：
@@ -131,7 +131,7 @@ React/Vue wrapper 支持：
 
 详细用法见 `NPM_PACKAGE.md`。
 
-当前 npm 包名为 `@smart-ai-flow/drawio-editor-lite`。
+发布前需要把 `package.json` 里的占位包名 `@your-scope/drawio-editor` 改成真实 npm scope/name。
 
 ## 关键改造点
 
