@@ -1,11 +1,6 @@
-# Drawio Lite Viewer / NPM Package
+# Drawio Lite Viewer
 
-这是一个基于 draw.io 30.0.2 前端静态资源改造的轻量查看器/基础编辑器。项目目标不是保留完整 draw.io 工作台，而是提供简洁白板、基础图形编辑、缩放和导出能力。
-
-项目现在支持两种使用方式：
-
-- 作为静态 WebApp 部署到 Vercel 或 Cloudflare Pages。
-- 作为 npm 包构建，供 React 或 Vue 现代前端项目通过 iframe wrapper 引入。
+这是一个基于 draw.io 30.0.2 前端静态资源改造的轻量查看器/基础编辑器。项目目标不是保留完整 draw.io 工作台，而是提供简洁白板、基础图形编辑、缩放和导出能力，并能直接部署到 Vercel 或 Cloudflare Pages。
 
 ## 当前定位
 
@@ -15,7 +10,6 @@
 - 保留基础图形、文本、连线、图片、链接、撤销/重做、缩放和导出。
 - 图形被选中时显示格式面板，方便修改样式。
 - 默认语言为中文。
-- npm 包形态保留 draw.io 静态运行时隔离，React/Vue 只通过 `postMessage` 通信。
 
 ## 目录结构
 
@@ -36,15 +30,8 @@
 ├── resources/                      # i18n 文案资源
 ├── images/ img/ shapes/ stencils/  # draw.io 图形和素材资源
 ├── scripts/
-│   ├── build-npm-package.js        # 生成 npm 包 dist
-│   ├── prepare-static-deploy.js    # 生成静态部署 dist
+│   ├── prepare-static-deploy.js    # 生成 dist 静态部署包
 │   └── serve-dist.js               # 本地预览 dist
-├── package-src/
-│   ├── core/                       # iframe 通信、URL 和多语言工具
-│   ├── react/                      # React DrawioEditor wrapper
-│   └── vue/                        # Vue 3 DrawioEditor wrapper
-├── test/                           # Node 核心测试
-├── NPM_PACKAGE.md                  # npm 包集成说明
 ├── service-worker.js               # 离线/缓存清单
 ├── vercel.json                     # Vercel 配置
 ├── wrangler.toml                   # Cloudflare Pages 配置
@@ -65,25 +52,7 @@ npm run check
 npm run build
 ```
 
-生成 npm 包形态的 `dist/`，包含 `dist/drawio`、`dist/core`、`dist/react` 和 `dist/vue`。
-
-```bash
-npm run build:npm
-```
-
-等价于 `npm run build`，用于生成 npm 包产物。
-
-```bash
-npm run build:static
-```
-
-生成静态部署形态的 `dist/`。Vercel 和 Cloudflare Pages 应使用这个命令。
-
-```bash
-npm test
-```
-
-运行 npm 包核心层测试。
+生成 `dist/`。部署平台应使用这个目录作为静态输出。
 
 ```bash
 npm run preview
@@ -99,39 +68,17 @@ PORT=3100 npm run preview
 
 Vercel:
 
-- Build Command: `npm run build:static`
+- Build Command: `npm run build`
 - Output Directory: `dist`
 - 如果仓库根目录不是当前目录，需要把项目根目录设置到 `src/main/webapp`
 
 Cloudflare Pages:
 
-- Build command: `npm run build:static`
+- Build command: `npm run build`
 - Build output directory: `dist`
 - 也可使用 `wrangler.toml` 中的 `pages_build_output_dir = "dist"`
 
 更详细的部署说明见 `DEPLOYMENT.md`。
-
-## npm 包集成
-
-包入口在 `package.json` 的 `exports` 中声明：
-
-```ts
-import { DrawioEditor } from '@your-scope/drawio-editor/react';
-import { DrawioEditor } from '@your-scope/drawio-editor/vue';
-```
-
-React/Vue wrapper 支持：
-
-- `assetBase` 指向公开可访问的 `dist/drawio` 静态资源。
-- `value` / `v-model` 传入和同步 XML。
-- `onChange`、`onSave`、`onExport`、`onError` 等事件。
-- `ref` / Vue expose 调用 `loadXml()`、`getXml()`、`save()`、`export()`、`exportAs()`。
-- `locale="zh"` / `locale="en"` 以及 `messages` 自定义中英文 wrapper 文案。
-- `config` 和 `urlParams` 透传 draw.io 配置。
-
-详细用法见 `NPM_PACKAGE.md`。
-
-发布前需要把 `package.json` 里的占位包名 `@your-scope/drawio-editor` 改成真实 npm scope/name。
 
 ## 关键改造点
 
@@ -177,16 +124,13 @@ React/Vue wrapper 支持：
 3. 每次准备部署前至少运行：
 
 ```bash
-npm test
-npm run build:npm
 npm run check
-npm run build:static
+npm run build
 node --check js/app.min.js
 node --check service-worker.js
 ```
 
-4. 本地预览静态 WebApp 时先运行 `npm run build:static`，然后 `npm run preview`，不要直接打开 `index.html` 文件。
-5. npm 包构建不会重写 draw.io 源码，只复制运行时资源到 `dist/drawio`，wrapper 代码来自 `package-src/`。
+4. 本地预览时先运行 `npm run build`，然后 `npm run preview`，不要直接打开 `index.html` 文件。
 
 ## 当前 GitHub 仓库
 

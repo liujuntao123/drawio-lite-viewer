@@ -1,5 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
+const fs = require('fs');
+const path = require('path');
 
 const root = process.cwd();
 const dist = path.join(root, 'dist');
