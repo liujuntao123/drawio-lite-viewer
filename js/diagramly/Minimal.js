@@ -630,10 +630,14 @@ EditorUi.initMinimalTheme = function()
 				menu.appendChild(sep);
 			};
 
-			addItem('打开', 'open');
-			addItem('保存', 'save');
-			addItem('另存为', 'saveAs');
-			addSeparator();
+			if (urlParams.embed != '1' && urlParams.lite != '1')
+			{
+				addItem('打开', 'open');
+				addItem('保存', 'save');
+				addItem('另存为', 'saveAs');
+				addSeparator();
+			}
+
 			addItem('导出 PNG', 'exportPng');
 			addItem('导出 SVG', 'exportSvg');
 			addItem('导出 XML', 'exportXml');

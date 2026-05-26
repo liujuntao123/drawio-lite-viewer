@@ -3449,23 +3449,28 @@ table.geProperties tr th {
 	position: absolute;
 	display: flex;
 	align-items: center;
-	gap: 4px;
-	padding: 4px;
-	border: 1px solid light-dark(#e5e7eb, #2f343b);
-	border-radius: 10px;
-	background: light-dark(rgba(255, 255, 255, 0.94), rgba(27, 29, 31, 0.94));
-	box-shadow: 0 8px 24px light-dark(rgba(15, 23, 42, 0.12), rgba(0, 0, 0, 0.32));
+	gap: 6px;
+	padding: 5px 10px;
+	border: 1px solid light-dark(#e6e7eb, #2f343b);
+	border-radius: 12px;
+	background: light-dark(#ffffff, rgba(27, 29, 31, 0.94));
+	box-shadow: 0 2px 8px light-dark(rgba(15, 23, 42, 0.08), rgba(0, 0, 0, 0.32));
 	backdrop-filter: blur(10px);
 	pointer-events: auto;
 }
 
 .geEditor.geMinimal .geFloatMainMenu {
-	top: 16px;
-	left: 16px;
+	top: 18px;
+	left: 8px;
+	padding: 0;
+	border-color: transparent;
+	background: transparent;
+	box-shadow: none;
+	backdrop-filter: none;
 }
 
 .geEditor.geMinimal .geFloatToolbox {
-	top: 16px;
+	top: 18px;
 	left: 50%;
 	transform: translateX(-50%);
 }
@@ -3483,7 +3488,7 @@ table.geProperties tr th {
 .geEditor.geMinimal .geFloatButton,
 .geEditor.geMinimal .geFloatDropdownItem {
 	border: 0;
-	border-radius: 8px;
+	border-radius: 10px;
 	background-color: transparent;
 	color: light-dark(#1f2937, #e5e7eb);
 	font: inherit;
@@ -3495,8 +3500,8 @@ table.geProperties tr th {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 34px;
-	height: 34px;
+	width: 40px;
+	height: 40px;
 	padding: 0;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -3507,7 +3512,18 @@ table.geProperties tr th {
 
 .geEditor.geMinimal .geFloatButton:hover,
 .geEditor.geMinimal .geFloatDropdownItem:hover {
-	background-color: light-dark(#f1f5f9, #2b3036);
+	background-color: light-dark(#f4f5f9, #2b3036);
+}
+
+.geEditor.geMinimal .geFloatMainMenu .geFloatButton {
+	width: 50px;
+	height: 50px;
+	background-color: light-dark(#ededfb, #2b2d38);
+	background-size: 22px 22px;
+}
+
+.geEditor.geMinimal .geFloatMainMenu .geFloatButton:hover {
+	background-color: light-dark(#e4e4f7, #343746);
 }
 
 .geEditor.geMinimal .geFloatButton[disabled] {
@@ -3598,10 +3614,10 @@ table.geProperties tr th {
 
 .geEditor.geMinimal .geFloatZoom .geZoomInput {
 	width: 64px;
-	height: 34px;
+	height: 40px;
 	margin: 0 !important;
 	border: 0;
-	border-radius: 8px;
+	border-radius: 10px;
 	background-color: transparent;
 	background-position: right 8px center;
 	font-size: 13px;

@@ -19,6 +19,7 @@
 ├── js/
 │   ├── bootstrap.js                # 启动加载器
 │   ├── main.js                     # 页面启动入口
+│   ├── embed-api.js                # iframe 轻量嵌入协议
 │   ├── app.min.js                  # 实际线上运行的主 bundle
 │   ├── diagramly/
 │   │   ├── Init.js                 # 全局初始化、语言和路径配置
@@ -80,6 +81,74 @@ Cloudflare Pages:
 
 更详细的部署说明见 `DEPLOYMENT.md`。
 
+## iframe 嵌入
+
+部署后的页面可以直接作为 iframe 嵌入宿主应用：
+
+```html
+<iframe
+  id="drawioFrame"
+  src="https://your-domain.example/?embed=1&proto=json&lite=1&autosave=1&lang=zh"
+  style="width:100%;height:640px;border:0"
+></iframe>
+```
+
+页面加载完成后会向宿主发送：
+
+```json
+{"event":"ready","protocol":"drawio-lite","actions":["load","getXml","save","export","exportAs","setReadOnly","undo","redo","fit","zoom","clear"]}
+```
+
+宿主向 iframe 发送命令时需要带 `protocol: "drawio-lite"`：
+
+```js
+const frame = document.getElementById('drawioFrame');
+
+frame.contentWindow.postMessage(JSON.stringify({
+  protocol: 'drawio-lite',
+  action: 'load',
+  id: 'load-1',
+  xml: '<mxfile><diagram /></mxfile>'
+}), '*');
+
+frame.contentWindow.postMessage(JSON.stringify({
+  protocol: 'drawio-lite',
+  action: 'export',
+  id: 'export-1',
+  format: 'xml'
+}), '*');
+```
+
+支持的 URL 参数：
+
+- `embed=1`：使用 draw.io 嵌入模式。
+- `proto=json`：启用 JSON 消息协议。
+- `lite=1`：启用本项目的轻量嵌入协议。
+- `autosave=1`：图变化时发送 `change` 事件。
+- `readOnly=1`：初始化后禁用编辑。
+- `lang=zh|en`：设置界面语言。
+
+支持的命令：
+
+- `load`：加载 XML，参数 `{ xml }`。
+- `getXml`：返回当前 XML，响应事件为 `export`，`format` 为 `xml`。
+- `save`：返回当前 XML，并清除 modified 状态。
+- `export` / `exportAs`：支持 `xml`、`svg`、`xmlsvg`。
+- `setReadOnly`：参数 `{ readOnly: true | false }`。
+- `undo`、`redo`、`fit`、`zoom`、`clear`。
+
+iframe 会发送这些事件：
+
+- `ready`：轻量协议已就绪。
+- `load`：XML 已加载。
+- `change`：内容发生变化，仅 `autosave=1` 时启用。
+- `save`：宿主触发保存后的 XML。
+- `export`：导出结果。
+- `readOnly`：只读状态已切换。
+- `error`：命令无法处理或执行失败。
+
+原 draw.io 官方 `embed=1&proto=json` 协议仍然可用；轻量协议只处理带 `protocol: "drawio-lite"` 的消息，避免和官方协议互相干扰。
+
 ## 关键改造点
 
 ### 轻量模式
@@ -124,8 +193,10 @@ Cloudflare Pages:
 3. 每次准备部署前至少运行：
 
 ```bash
+node --test test/embed-api.test.js
 npm run check
 npm run build
+node --check js/embed-api.js
 node --check js/app.min.js
 node --check service-worker.js
 ```
