@@ -26,14 +26,15 @@
 	<style type="text/css">
 		.geBlock {
 			z-index:-3;
-			margin:100px;
-			margin-top:40px;
-			margin-bottom:30px;
-			padding:20px;
-			text-align:center;
-			min-width:50%;
+			margin:0;
+			padding:0;
+			min-width:100%;
+			min-height:100vh;
+			display:flex;
+			align-items:center;
+			justify-content:center;
 		}
-		.geBlock h1, .geBlock h2 {
+		.geBlock h2 {
 			margin-top:0px;
 			padding-top:0px;
 		}
@@ -42,15 +43,7 @@
 <body class="geEditor geClassic">
 <div id="geInfo">
 	<div class="geBlock">
-		<h1>Flowchart Maker and Online Diagram Software</h1>
-		<p>
-			draw.io is free online diagram software. You can use it as a flowchart maker, network diagram software, to create UML online, as an ER diagram tool, 
-			to design database schema, to build BPMN online, as a circuit diagram maker, and more. draw.io can import .vsdx, Gliffy&trade; and Lucidchart&trade; files .
-		</p>
-		<h2 id="geStatus">Loading... <img src="images/spin.gif"/></h2>
-		<p>
-			Please ensure JavaScript is enabled.
-		</p>
+		<h2 id="geStatus"><img src="images/spin.gif" alt=""/></h2>
 	</div>
 </div>
 <script src="js/embed-api.js"></script>

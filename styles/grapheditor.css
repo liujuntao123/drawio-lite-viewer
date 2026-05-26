@@ -3449,6 +3449,7 @@ table.geProperties tr th {
 	position: absolute;
 	display: flex;
 	align-items: center;
+	box-sizing: border-box;
 	gap: 6px;
 	padding: 5px 10px;
 	border: 1px solid light-dark(#e6e7eb, #2f343b);
@@ -3481,7 +3482,7 @@ table.geProperties tr th {
 }
 
 .geEditor.geMinimal .geFloatHistory {
-	left: 184px;
+	left: 224px;
 	bottom: 16px;
 }
 
@@ -3613,14 +3614,18 @@ table.geProperties tr th {
 }
 
 .geEditor.geMinimal .geFloatZoom .geZoomInput {
-	width: 64px;
+	box-sizing: border-box;
+	width: 76px;
 	height: 40px;
 	margin: 0 !important;
+	padding: 0 18px 0 10px;
 	border: 0;
 	border-radius: 10px;
 	background-color: transparent;
-	background-position: right 8px center;
-	font-size: 13px;
+	background-position: right 10px center;
+	font-family: inherit;
+	font-size: 14px;
+	line-height: 40px;
 	text-align: center;
 }
 
